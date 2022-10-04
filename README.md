@@ -26,16 +26,16 @@ Bash:
 ```bash
 # Create stacks
 ## Network
-./create.sh stack-net submission/network.yml submission/network.parameters.jso us-east-1
+./create.sh stack-net submission/network.yml submission/network.parameters.json us-east-1
 
 ## Server
-./create.sh stack-app submission/server.yml submission/server.parameters.jso us-east-1
+./create.sh stack-app submission/server.yml submission/server.parameters.json us-east-1
 
 
 # Update stacks
 ## Network
-./update.sh stack-net submission/network.yml submission/network.parameters.jso us-east-1
+./update.sh stack-net submission/network.yml submission/network.parameters.json us-east-1
 
 ## Server
-./update.sh stack-app submission/server.yml submission/server.parameters.jso us-east-1
+./update.sh stack-app submission/server.yml submission/server.parameters.json us-east-1
 ```
