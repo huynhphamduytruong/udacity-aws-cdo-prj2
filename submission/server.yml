@@ -1,4 +1,4 @@
-Description: TruongHPD - Udacity Cloud DevOps Project 2 - Server
+Description: TruongHPD - Udacity Cloud DevOps Project 2 - Server Stack
 
 Parameters:
   EnvironmentName:
@@ -16,11 +16,9 @@ Parameters:
       - m1.small
       - m1.large
     Description: Enter t3.small, m1.small, or m1.large. Default is t3.small.
-  KeyName:
-    Description: "Name of an existing EC2 KeyPair to enable SSH access to the instance"
-    Type: "AWS::EC2::KeyPair::KeyName"
-    Default: udacity-cdo
-    ConstraintDescription: "must be the name of an existing EC2 KeyPair."
+  S3BucketName:
+    Type: String
+    Description: S3 bucket where store the index.html file use to host on our server
 
 Resources:
   # Security Group
@@ -86,19 +84,25 @@ Resources:
   WebAppLaunchConfig:
     Type: AWS::AutoScaling::LaunchConfiguration
     Metadata:
-      Comment: Install Web Application
+      AWS::CloudFormation::Authentication:
+        S3Auth:
+          type: "S3"
+          roleName: !Ref ServerRole
+          buckets:
+            - !Ref S3BucketName
       AWS::CloudFormation::Init:
+        Comment: Install Web Application
         config:
           packages:
             yum:
               httpd: []
           files:
             /var/www/html/index.html:
-              content: |
-                <html><head><title>TruongHPD - Cloud DevOps Nanodegree - Project #2</title></head><body><h1>It works! Udagram, Udacity</h1></body></html>
+              source: !Sub "http://${S3BucketName}.s3.amazonaws.com/index.html"
               mode: 000644
               owner: apache
               group: apache
+              authentication: S3Auth
           services:
             sysvinit:
               httpd:
@@ -108,7 +112,6 @@ Resources:
       ImageId: !Ref AmiIdToUse
       InstanceType: !Ref InstanceType
       IamInstanceProfile: !Ref ServerInstanceProfile
-      KeyName: !Ref KeyName
       SecurityGroups:
         - !Ref WebServerSecurityGroup
       BlockDeviceMappings:

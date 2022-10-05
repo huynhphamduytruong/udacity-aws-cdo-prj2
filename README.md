@@ -1,11 +1,15 @@
 # Udacity Cloud DevOps Engineer: Project 02 - Deploy a high-availability web app using CloudFormation
 
+## Diagram
+![Diagram](Udacity_CDO_Project2.png)
+
 ## How to run this?
 
 Powershell:
 
 ```powershell
 # Create stacks
+# ./create.bat "<stack_name>" "<stack_template_file>" "<stack_parameters_file>" "<region>"
 ## Network
 ./create.bat "stack-net" "submission/network.yml" "submission/network.parameters.json" "us-east-1"
 ## Server
@@ -13,6 +17,7 @@ Powershell:
 
 
 # Update stacks
+# ./update.bat "<stack_name>" "<stack_template_file>" "<stack_parameters_file>" "<region>"
 ## Network
 ./update.bat "stack-net" "submission/network.yml" "submission/network.parameters.json" "us-east-1"
 ## Server

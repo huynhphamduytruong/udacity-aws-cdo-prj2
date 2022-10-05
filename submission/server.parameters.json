@@ -4,5 +4,6 @@
     "ParameterKey": "AmiIdToUse",
     "ParameterValue": "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
   },
-  { "ParameterKey": "InstanceType", "ParameterValue": "t3.small" }
+  { "ParameterKey": "InstanceType", "ParameterValue": "t3.small" },
+  { "ParameterKey": "S3BucketName", "ParameterValue": "truonghpd-cdo-prj2" }
 ]
